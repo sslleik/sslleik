@@ -1,0 +1,533 @@
+/* ======================================
+   neVPN — Чистый, современный дизайн
+   Система переменных, темы, доступность
+   ====================================== */
+
+:root {
+  /* Цвета по умолчанию (тёмная тема) */
+  --bg-body: #0b0c0e;
+  --bg-elev: #121417;
+  --bg-elev-2: #171a1f;
+  --text: #e8eaed;
+  --text-muted: #a7b0b8;
+  --accent: #00f08a;
+  --accent-strong: #00c46c;
+  --border: rgba(255,255,255,0.08);
+  --focus: #7cdfff;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+
+  --shadow-soft: 0 6px 24px rgba(0,0,0,0.35);
+  --shadow-accent: 0 0 24px rgba(0, 240, 138, 0.35);
+
+  --container: 1120px;
+  --space-1: 6px;
+  --space-2: 10px;
+  --space-3: 14px;
+  --space-4: 18px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+
+  --ts-fast: 160ms ease;
+  --ts: 240ms ease;
+}
+
+/* Светлая тема */
+[data-theme="light"] {
+  --bg-body: #ffffff;
+  --bg-elev: #f7f9fb;
+  --bg-elev-2: #eef2f6;
+  --text: #0e1217;
+  --text-muted: #5a6b7a;
+  --accent: #12b886;
+  --accent-strong: #099268;
+  --border: rgba(0,0,0,0.08);
+  --focus: #1e90ff;
+  --shadow-soft: 0 6px 24px rgba(0,0,0,0.08);
+  --shadow-accent: 0 0 18px rgba(18, 184, 134, 0.35);
+}
+
+/* ---------- Сброс и базовые ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: linear-gradient(120deg, var(--bg-body), var(--bg-elev));
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg { display: block; max-width: 100%; }
+button { font: inherit; }
+a { color: inherit; }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+/* ---------- Доступность ---------- */
+:focus { outline: none; }
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ======================================
+   Шапка и навигация
+   ====================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  margin: var(--space-3) auto 0;
+  width: calc(100% - 40px);
+  max-width: var(--container);
+  background: color-mix(in oklab, var(--bg-elev) 92%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 40px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--accent);
+  font-weight: 800;
+  text-decoration: none;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: color var(--ts), background var(--ts), transform var(--ts-fast);
+}
+
+.nav-link:hover {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  background: var(--accent);
+  color: #05150f;
+  box-shadow: var(--shadow-accent);
+}
+
+.controls { display: flex; gap: var(--space-2); align-items: center; }
+
+/* ======================================
+   Кнопки
+   ====================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--ts-fast), box-shadow var(--ts), background var(--ts), color var(--ts);
+  text-decoration: none;
+  min-width: 152px;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #071a12;
+  box-shadow: var(--shadow-accent);
+}
+
+.btn.primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.btn.ghost {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn.ghost:hover {
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+}
+
+.btn.large { padding: 14px 26px; font-size: 17px; }
+
+/* Ripple без переполнения текста */
+.btn { position: relative; overflow: hidden; }
+.btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.25);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 420ms ease, height 420ms ease;
+  pointer-events: none;
+}
+.btn:active::after { width: 220%; height: 220%; }
+
+/* Кнопки в тарифах во всю ширину */
+.plan .btn { width: 100%; margin-top: var(--space-3); }
+
+/* ======================================
+   Главный блок (HERO)
+   ====================================== */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: 120px 0 var(--space-7);
+}
+
+.hero-content { flex: 1 1 480px; }
+.hero-visual { flex: 1 1 360px; }
+
+.hero h1 {
+  font-size: clamp(30px, 4.5vw, 48px);
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.lead {
+  color: var(--text-muted);
+  font-size: 18px;
+  margin: var(--space-3) 0 var(--space-4);
+}
+
+.hero-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+
+/* ======================================
+   Статистика
+   ====================================== */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.stat {
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  text-align: center;
+}
+
+.stat-number {
+  color: var(--accent);
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.stat-label { color: var(--text-muted); font-size: 14px; }
+
+/* ======================================
+   Секции и заголовки
+   ====================================== */
+section { padding: var(--space-7) 0; }
+
+h2 {
+  font-size: clamp(22px, 3vw, 30px);
+  color: var(--accent);
+  margin-bottom: var(--space-4);
+  letter-spacing: 0.2px;
+}
+
+/* Если есть .visible — анимируем, но по умолчанию не скрываем контент */
+section.visible { animation: fadeUp 700ms var(--ts) both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ======================================
+   Карточки и сетки
+   ====================================== */
+.features,
+.benefit-grid,
+.plan-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+.feature-card,
+.benefit,
+.plan {
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  transition: transform var(--ts-fast), box-shadow var(--ts);
+}
+
+.feature-card:hover,
+.benefit:hover,
+.plan:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-accent);
+}
+
+/* ======================================
+   Тарифы — улучшенные карточки
+   ====================================== */
+.plan-cards { align-items: stretch; }
+
+.plan {
+  position: relative;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.plan .badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--accent);
+  color: #062217;
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-accent);
+}
+
+.plan-header h3 { font-size: 20px; margin: 0; }
+.plan-header .price {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 6px 0 0;
+}
+.plan-header .period { color: var(--text-muted); font-weight: 600; font-size: 14px; }
+
+.plan ul { list-style: none; display: grid; gap: 10px; margin-top: -6px; }
+.plan ul li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: start;
+  gap: 10px;
+  color: var(--text);
+}
+.plan ul li::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  margin-top: 4px;
+  border-radius: 3px;
+  background: conic-gradient(from 180deg, var(--accent), var(--accent-strong));
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 26%, transparent);
+}
+
+.plan .note { color: var(--text-muted); font-size: 13px; }
+
+.plan .btn { margin-top: auto; }
+
+/* Выделение популярного тарифа */
+.plan.popular {
+  border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
+  box-shadow: var(--shadow-accent);
+  transform: translateY(-4px);
+}
+.plan.popular .price { text-shadow: 0 0 18px color-mix(in oklab, var(--accent) 40%, transparent); }
+
+/* Горизонтальные паддинги для карточек на десктопе */
+@media (min-width: 861px) {
+  .plan { padding: var(--space-6); }
+}
+
+/* Стек на мобильных */
+@media (max-width: 860px) {
+  .plan { text-align: left; }
+}
+
+/* ======================================
+   Формы
+   ====================================== */
+.contact-form {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 640px;
+  margin: var(--space-4) auto 0;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: color-mix(in oklab, var(--text-muted) 80%, transparent); }
+
+.contact-form textarea { min-height: 132px; resize: vertical; }
+
+.form-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
+/* Валидация (демо) */
+input:invalid, textarea:invalid { box-shadow: 0 0 0 2px color-mix(in oklab, #ff3b30 30%, transparent); }
+
+/* ======================================
+   Подвал
+   ====================================== */
+.site-footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: var(--space-6) var(--space-4);
+  border-top: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg-elev) 60%, transparent);
+}
+
+.site-footer a { color: var(--accent); text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+
+/* ======================================
+   Кнопка "Вверх"
+   ====================================== */
+.scroll-up {
+  position: fixed;
+  right: 24px;
+  bottom: 60px;
+  background: var(--accent);
+  color: #071a12;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  text-decoration: none;
+  font-weight: 800;
+  box-shadow: var(--shadow-accent);
+  transition: transform var(--ts-fast), box-shadow var(--ts);
+}
+
+.scroll-up:hover { transform: translateY(-3px); }
+
+/* ======================================
+   Прочее
+   ====================================== */
+.hero-visual .feature-card h3 {
+  margin-bottom: 6px;
+}
+
+/* ======================================
+   Адаптив
+   ====================================== */
+@media (max-width: 980px) {
+  .nav { gap: var(--space-1); }
+}
+
+@media (max-width: 860px) {
+  .hero { flex-direction: column; text-align: center; padding-top: 96px; }
+  .stats { justify-content: center; }
+  .header-inner { justify-content: center; }
+  .menu-toggle { display: inline-flex; }
+  .nav { display: none; width: 100%; }
+  .nav.open { display: flex !important; justify-content: center; gap: var(--space-2); padding-top: var(--space-2); }
+  .plan .btn { font-size: 15px; }
+}
+
+/* Desktop: скрываем кнопку меню */
+@media (min-width: 861px) {
+  .menu-toggle { display: none; }
+}
+
+/* ======================================
+   Фреймовое окно для статей
+   ====================================== */
+.articles-frame .frame {
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 8px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.articles-frame .frame-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  color: var(--text-muted);
+}
+
+.articles-frame .dots { display: inline-flex; gap: 6px; }
+.articles-frame .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.articles-frame .dot.red { background: #ff5f57; }
+.articles-frame .dot.yellow { background: #ffbd2e; }
+.articles-frame .dot.green { background: #28c840; }
+
+.articles-frame iframe {
+  width: 100%;
+  height: 70vh;
+  min-height: 480px;
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 8px);
+  background: var(--bg-body);
+}
+
+@media (max-width: 860px) {
+  .articles-frame iframe { height: 60vh; min-height: 380px; }
+}
